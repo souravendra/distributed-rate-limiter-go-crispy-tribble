@@ -1,6 +1,7 @@
 # Distributed Rate Limiter in Go (Token Bucket + Redis)
 
 ![Go CI](https://github.com/souravendra/distributed-rate-limiter-go-crispy-tribble/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble/branch/main/graph/badge.svg)](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble)
 
 
 This is an implementation of a **distributed rate limiter** using the **Token Bucket algorithm**, backed by **Redis**, and built in **Go**. It's designed to be efficient, scalable, and production-ready.
@@ -16,6 +17,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 - Singleton limiter instance for safe shared use
 - Works out-of-the-box with any Redis instance
 - Unit tests using `stretchr/testify`
+- Code coverage tracking via Codecov
 
 ---
 
@@ -37,6 +39,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 - **Redis** 6+
 - **go-redis** client
 - **Testify** for unit testing
+- **Codecov** for real-time test coverage
 
 ---
 
@@ -95,12 +98,17 @@ curl localhost:6379 # checking
 ```
 Make more than 2 requests per second to get `429 Too Many Requests`.
 
-### 4. **Run Unit Tests**
+### 4. **Run Lint + Tests + Coverage**
 
 ```bash
-go test ./...
+task lint       # static analysis
 ```
-
+```bash
+task test       # unit tests with coverage
+```
+```bash
+task coverage   # HTML coverage report
+```
 
 ---
 
