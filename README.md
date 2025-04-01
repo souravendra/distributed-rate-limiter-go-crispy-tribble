@@ -15,7 +15,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 
 ---
 
-## 📦 Design Patterns Used
+## Design Patterns Used
 
 | Pattern                   | Purpose                                                                 |
 |--------------------------|-------------------------------------------------------------------------|
@@ -27,7 +27,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 - **Go** 1.20+
 - **Redis** 6+
@@ -46,7 +46,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 
 ---
 
-## 🧪 Rate Limiting Logic
+## Rate Limiting Logic
 
 - **Rate:** 2 requests/sec
 - **Burst:** 2 requests
@@ -56,10 +56,11 @@ Redis stores count keys like `rate:limiter:test-client` and uses `INCR` and `EXP
 
 ---
 
-## ▶️ Running the Project
+## Running Locally
 
-### 1. **Start Redis Locally** (no Docker)
+### 1. **Start Redis**
 
+(I wasnt using Docker for Redis)
 #### macOS:
 ```bash
 brew install redis
@@ -73,16 +74,19 @@ brew services start redis
 ```bash
 task run # using Taskfile.yaml
 ```
+### 3. **Spamming Requests & Other Commands**
 
-Now open your browser or run:
+ (can use a script if you want, I kept the window short to be able to trigger it manually):
 ```bash
-curl localhost:8080
+curl localhost:8080 # spam
+redis-cli FLUSHALL # clearing Redis
+curl localhost:6379 # checking 
 ```
 Make more than 2 requests per second to get `429 Too Many Requests`.
 
 ---
 
-## 📈 Example Output
+## Example Output
 
 ```
 Request allowed: 2025-04-01T18:26:15+05:30
@@ -90,23 +94,36 @@ Request allowed: 2025-04-01T18:26:16+05:30
 Rate limit exceeded
 ```
 
+## Example Debug Logs
+
+```
+task: [run] go run main.go
+Server running on :8080
+New TTL set: 1s
+Key: rate:limiter:test-client, Count: 1
+New TTL set: 1s
+Key: rate:limiter:test-client, Count: 1
+Key: rate:limiter:test-client, Count: 2
+Key: rate:limiter:test-client, Count: 3
+Key: rate:limiter:test-client, Count: 4
+Key: rate:limiter:test-client, Count: 5
+New TTL set: 1s
+Key: rate:limiter:test-client, Count: 1
+Key: rate:limiter:test-client, Count: 2
+```
+
 ---
 
-## 💡 Possible Improvements / Extensions
+## Possible Improvements / Extensions
 
-- 🔁 Sliding window or Leaky bucket algorithms
-- 🔑 Per-IP or API-key based throttling
-- 🔧 Admin dashboard for live metrics
-- 🌐 Redis Cluster or Sentinel support
-- 📊 Prometheus metrics + Grafana dashboard
-
-
----
-
-## 👨‍💻 Author
+- Sliding window or Leaky bucket algorithms
+- Per-IP or API-key based throttling
+- Admin dashboard for live metrics
+- Redis Cluster or Sentinel support
+- Prometheus metrics + Grafana dashboard
 
 
-Crafted with care by me – designed to be readable and extensible. Will probably build on top of it later
+_Crafted with care by me – designed to be readable and extensible. Will probably build on top of it later_
 
 ---
 
