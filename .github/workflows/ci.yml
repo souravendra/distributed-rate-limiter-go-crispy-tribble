@@ -26,3 +26,18 @@ jobs:
 
     - name: Run tests
       run: go test ./... -v
+
+    - name: Run linter
+      run: |
+        go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+        golangci-lint run ./...
+
+    - name: Run tests with coverage
+      run: go test -coverprofile=coverage.out ./...
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        files: coverage.out
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
