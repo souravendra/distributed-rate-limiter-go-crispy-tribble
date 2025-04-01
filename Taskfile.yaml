@@ -1,9 +1,31 @@
 version: '3'
 
 tasks:
+  default:
+    cmds:
+      - task: lint
+      - task: test
+
   run:
+    desc: Run the server
     cmds:
       - go run main.go
-  test:
+
+  lint:
+    desc: Run linter
     cmds:
-      - go test ./...
+      - echo "🔍 Linting..."
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+      - golangci-lint run ./...
+
+  test:
+    desc: Run unit tests with coverage
+    cmds:
+      - echo "🧪 Running tests..."
+      - go test -cover ./...
+
+  coverage:
+    desc: Generate HTML coverage report
+    cmds:
+      - go test -coverprofile=coverage.out ./...
+      - go tool cover -html=coverage.out
