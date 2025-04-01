@@ -1,7 +1,7 @@
 # Distributed Rate Limiter in Go (Token Bucket + Redis)
 
 ![Go CI](https://github.com/souravendra/distributed-rate-limiter-go-crispy-tribble/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble/branch/main/graph/badge.svg)](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble)
+<!-- [![codecov](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble/branch/main/graph/badge.svg)](https://codecov.io/gh/souravendra/distributed-rate-limiter-go-crispy-tribble) -->
 
 
 This is an implementation of a **distributed rate limiter** using the **Token Bucket algorithm**, backed by **Redis**, and built in **Go**. It's designed to be efficient, scalable, and production-ready.
