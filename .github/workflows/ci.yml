@@ -33,7 +33,7 @@ jobs:
         golangci-lint run ./...
 
     - name: Run tests with coverage
-      run: go test -coverprofile=coverage.out ./...
+      run: go test -coverprofile=coverage.txt
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5
@@ -41,3 +41,4 @@ jobs:
         files: coverage.out
         fail_ci_if_error: true
         token: ${{ secrets.CODECOV_TOKEN }}
+        slug: souravendra/distributed-rate-limiter-go-crispy-tribble
