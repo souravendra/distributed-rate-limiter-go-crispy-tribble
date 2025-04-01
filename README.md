@@ -1,1 +1,1 @@
-# distributed-rate-limiter-go-crispy-tribble
+# Distributed Rate Limiter in Go
