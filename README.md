@@ -1,5 +1,8 @@
 # Distributed Rate Limiter in Go (Token Bucket + Redis)
 
+![Go CI](https://github.com/souravendra/distributed-rate-limiter-go-crispy-tribble/actions/workflows/ci.yml/badge.svg)
+
+
 This is an implementation of a **distributed rate limiter** using the **Token Bucket algorithm**, backed by **Redis**, and built in **Go**. It's designed to be efficient, scalable, and production-ready.
 
 ---
@@ -12,6 +15,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 - Flexible configuration with Functional Options pattern
 - Singleton limiter instance for safe shared use
 - Works out-of-the-box with any Redis instance
+- Unit tests using `stretchr/testify`
 
 ---
 
@@ -32,17 +36,24 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 - **Go** 1.20+
 - **Redis** 6+
 - **go-redis** client
+- **Testify** for unit testing
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
-├── main.go               # HTTP server + limiter wiring
-├── limiter.go            # RateLimiter logic
-├── README.md             # You're here
-```
+├── main.go                   → Entrypoint for HTTP server
+├── limiter/
+│   ├── limiter.go           → Limiter struct & functional options
+│   ├── strategy.go          → TokenBucket + RateLimiter interface
+│   ├── store.go             → RedisStore + Store interface
+│   └── limiter_test.go      → Unit tests for limiter
+├── middleware/
+│   └── ratelimit.go         → HTTP middleware
+└── .github/workflows/ci.yml → GitHub Actions CI pipeline
+└── Taskfile.yml             → Task runner for linting and testing
 
 ---
 
@@ -83,6 +94,13 @@ redis-cli FLUSHALL # clearing Redis
 curl localhost:6379 # checking 
 ```
 Make more than 2 requests per second to get `429 Too Many Requests`.
+
+### 4. **Run Unit Tests**
+
+```bash
+go test ./...
+```
+
 
 ---
 
