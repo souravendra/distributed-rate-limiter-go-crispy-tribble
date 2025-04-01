@@ -54,7 +54,7 @@ This is an implementation of a **distributed rate limiter** using the **Token Bu
 │   └── ratelimit.go         → HTTP middleware
 └── .github/workflows/ci.yml → GitHub Actions CI pipeline
 └── Taskfile.yml             → Task runner for linting and testing
-
+```
 ---
 
 ## Rate Limiting Logic
