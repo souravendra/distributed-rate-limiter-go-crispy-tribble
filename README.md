@@ -1,4 +1,4 @@
-# Distributed Rate Limiter in Go (Token Bucket + Redis)
+# Distributed Rate Limiter in Go and Redis
 
 Build Status:
 
@@ -10,6 +10,12 @@ Code Coverage Report:
 
 
 This is an implementation of a **distributed rate limiter** using the **Token Bucket algorithm**, backed by **Redis**, and built in **Go**. It's designed to be efficient, scalable, and production-ready.
+
+Other algorithms are also implemented and can be selected using the `RATE_LIMIT_STRATEGY` variable in the `.env` -
+- Leaky Bucket 
+- Fixed Window
+- Sliding Window Log
+- Moving Window Counter (Hybrid Sliding Window)
 
 ---
 
