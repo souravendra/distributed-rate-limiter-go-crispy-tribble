@@ -35,16 +35,56 @@ func (m *mockStore) GetTTL(key string) (time.Duration, error) {
 }
 
 func TestTokenBucket_Allow(t *testing.T) {
+	t.Parallel()
 	store := newMockStore()
-	bucket := limiter.NewTokenBucket(store, 2, 1, 2)
-	key := "test"
+	tb := limiter.NewTokenBucket(store, 2, 1, 2)
+	key := "token"
 
-	allowed := bucket.Allow(key)
-	assert.True(t, allowed)
+	assert.True(t, tb.Allow(key))
+	assert.True(t, tb.Allow(key))
+	assert.False(t, tb.Allow(key))
+}
 
-	allowed = bucket.Allow(key)
-	assert.True(t, allowed)
+func TestFixedWindow_Allow(t *testing.T) {
+	t.Parallel()
+	store := newMockStore()
+	fw := limiter.NewFixedWindow(store, 2, 1)
+	key := "fixed"
 
-	allowed = bucket.Allow(key)
-	assert.False(t, allowed)
+	assert.True(t, fw.Allow(key))
+	assert.True(t, fw.Allow(key))
+	assert.False(t, fw.Allow(key))
+}
+
+func TestSlidingWindowLog_Allow(t *testing.T) {
+	t.Parallel()
+	store := newMockStore()
+	sw := limiter.NewSlidingWindowLog(store, 2, 1)
+	key := "sliding"
+
+	assert.True(t, sw.Allow(key))
+	assert.True(t, sw.Allow(key))
+	assert.False(t, sw.Allow(key))
+}
+
+func TestLeakyBucket_Allow(t *testing.T) {
+	t.Parallel()
+	store := newMockStore()
+	lb := limiter.NewLeakyBucket(store, 2, 1, 2)
+	key := "leaky"
+
+	assert.True(t, lb.Allow(key))
+	assert.True(t, lb.Allow(key))
+	assert.False(t, lb.Allow(key))
+}
+
+func TestMovingWindow_Allow(t *testing.T) {
+	t.Parallel()
+	store := newMockStore()
+	mw := limiter.NewMovingWindow(store, 2, 1)
+	key := "moving"
+
+	assert.True(t, mw.Allow(key))
+	assert.True(t, mw.Allow(key))
+	assert.False(t, mw.Allow(key))
 }
